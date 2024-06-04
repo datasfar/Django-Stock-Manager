@@ -1,0 +1,18 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<section class="form-section">
+    <h1 class="titulo-form">Editar un producto</h1><hr>
+    <form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{form}}
+
+    <button class="btn btn-primary">Actualizar</button>
+
+    </form>
+
+</section>
+
+{% endblock %}

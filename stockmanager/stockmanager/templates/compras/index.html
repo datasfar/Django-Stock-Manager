@@ -1,0 +1,50 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<section class="sub-header">
+  <h1 class="titulo-form">Compras</h1>   
+  <a href="{% url 'purchase_new' %}"><button class="btn btn-primary">Nueva Compra</button></a>
+</section>
+<hr>
+<section class="section-table">
+    <div class="overflow-x-auto">
+        <table class="table">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th></th>
+              <th>Fecha</th>
+              <th>Proveedor</th>
+              <th>Total</th>
+              <th>Detalles</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for purchase in purchases %}
+            <tr>
+              <th>0000{{purchase.CompraID}}</th>
+              <td>{{purchase.FechaCompra}}</td>
+              <td>{{purchase.ProveedorID.Nombre}}</td>
+              <td>{{purchase.Total}}</td>
+              <td><a href="{% url 'purchase_get' purchase.CompraID %}" class="link">Ver más</a></td>
+
+              <td> <form action="{% url 'purchase_delete' purchase.CompraID %}" method="POST">
+                {% csrf_token %}
+                <button class="btn btn-error">Eliminar</button>
+              </form></td>
+              
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+</section>
+
+
+{% endblock %}

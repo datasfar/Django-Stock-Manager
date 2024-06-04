@@ -1,0 +1,71 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="form-section">
+  <h1 class="titulo-form">Compra a proveedores</h1><hr>
+  <section class="section-table">
+      <div class="overflow-x-auto">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Proveedor</th>
+                <th></th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>0000{{purchase.CompraID}}</th>
+                <td>{{purchase.FechaCompra}}</td>
+                <td>{{purchase.ProveedorID.Nombre}}</td>
+                <td></td>
+                <td>{{purchase.Total}}</td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Cantidad</th>
+                <th>Producto</th>
+                <th>Precio Unitario</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for pd in purchase_details %}
+              <tr>
+                <th>0000{{pd.CompraID.CompraID}}</th>
+                <td>{{pd.Cantidad}}</td>
+                <td>{{pd.ProductoID.Nombre}}</td>
+                <td>{{pd.ProductoID.Precio}}</td>
+
+                <td> <form action="{% url 'purchase_delete_detail' CompraID=pd.CompraID.CompraID DetalleCompraID=pd.DetalleCompraID %}" method="POST">
+                  {% csrf_token %}
+                  <button class="btn btn-error">Eliminar</button>
+                </form></td>
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+</section>
+
+
+  <section class="form-section">
+    <h1 class="titulo-form"> Nuevo detalle de compra </h1> <hr>
+      <form class="form-detail" method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{form}}
+
+        <button class="btn btn-primary btn-crear">Añadir</button>
+      </form>
+  </section>
+</section>
+{% endblock %}
